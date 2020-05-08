@@ -1,0 +1,326 @@
+﻿BegClass Form1 Partial(*Yes)
+	DclFld label8 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld labelLogFileMessage Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld comboboxTimesToRun Type(System.Windows.Forms.ComboBox) Access(*Private) WithEvents(*Yes)
+	DclFld label6 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld linklabelClearList Type(System.Windows.Forms.LinkLabel) Access(*Private) WithEvents(*Yes)
+	DclFld listboxResults Type(System.Windows.Forms.ListBox) Access(*Private) WithEvents(*Yes)
+	DclFld comboboxDBName Type(System.Windows.Forms.ComboBox) Access(*Private) WithEvents(*Yes)
+	DclFld comboboxTest Type(System.Windows.Forms.ComboBox) Access(*Private) WithEvents(*Yes)
+	DclFld label9 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label1 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label2 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label3 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label4 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label5 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label7 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld labelDBName Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld labelFilePath Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld labelTestDescription Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld labelDateRan Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld labelReadFile Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld labelRecordsRead Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+
+	// Required method for Designer support - do not modify
+	// the contents of this method with the code editor.
+	BegSr InitializeComponent
+		*this.buttonRunTest = *new System.Windows.Forms.Button()
+		*this.labelRecordsRead = *new System.Windows.Forms.Label()
+		*this.labelDBName = *new System.Windows.Forms.Label()
+		*this.labelFilePath = *new System.Windows.Forms.Label()
+		*this.labelTestDescription = *new System.Windows.Forms.Label()
+		*this.labelDateRan = *new System.Windows.Forms.Label()
+		*this.labelReadFile = *new System.Windows.Forms.Label()
+		*this.label1 = *new System.Windows.Forms.Label()
+		*this.label2 = *new System.Windows.Forms.Label()
+		*this.label3 = *new System.Windows.Forms.Label()
+		*this.label4 = *new System.Windows.Forms.Label()
+		*this.label5 = *new System.Windows.Forms.Label()
+		*this.label7 = *new System.Windows.Forms.Label()
+		*this.label9 = *new System.Windows.Forms.Label()
+		*this.comboboxTest = *new System.Windows.Forms.ComboBox()
+		*this.comboboxDBName = *new System.Windows.Forms.ComboBox()
+		*this.listboxResults = *new System.Windows.Forms.ListBox()
+		*this.linklabelClearList = *new System.Windows.Forms.LinkLabel()
+		*this.comboboxTimesToRun = *new System.Windows.Forms.ComboBox()
+		*this.label6 = *new System.Windows.Forms.Label()
+		*this.labelLogFileMessage = *new System.Windows.Forms.Label()
+		*this.label8 = *new System.Windows.Forms.Label()
+		*this.SuspendLayout()
+		//
+		//buttonRunTest
+		//
+		*this.buttonRunTest.Location = *new System.Drawing.Point(193I, 190I)
+		*this.buttonRunTest.Margin = *new System.Windows.Forms.Padding(4I, 5I, 4I, 5I)
+		*this.buttonRunTest.Name = "buttonRunTest"
+		*this.buttonRunTest.Size = *new System.Drawing.Size(145I, 61I)
+		*this.buttonRunTest.TabIndex = 0I
+		*this.buttonRunTest.Text = "Run test"
+		*this.buttonRunTest.UseVisualStyleBackColor = *True
+		//
+		//labelRecordsRead
+		//
+		*this.labelRecordsRead.AutoSize = *True
+		*this.labelRecordsRead.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.labelRecordsRead.Location = *new System.Drawing.Point(195I, 493I)
+		*this.labelRecordsRead.Name = "labelRecordsRead"
+		*this.labelRecordsRead.Size = *new System.Drawing.Size(45I, 16I)
+		*this.labelRecordsRead.TabIndex = 1I
+		*this.labelRecordsRead.Tag = "clear"
+		*this.labelRecordsRead.Text = "label1"
+		//
+		//labelDBName
+		//
+		*this.labelDBName.AutoSize = *True
+		*this.labelDBName.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.labelDBName.Location = *new System.Drawing.Point(195I, 377I)
+		*this.labelDBName.Name = "labelDBName"
+		*this.labelDBName.Size = *new System.Drawing.Size(45I, 16I)
+		*this.labelDBName.TabIndex = 2I
+		*this.labelDBName.Tag = "clear"
+		*this.labelDBName.Text = "label1"
+		//
+		//labelFilePath
+		//
+		*this.labelFilePath.AutoSize = *True
+		*this.labelFilePath.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.labelFilePath.Location = *new System.Drawing.Point(195I, 406I)
+		*this.labelFilePath.Name = "labelFilePath"
+		*this.labelFilePath.Size = *new System.Drawing.Size(45I, 16I)
+		*this.labelFilePath.TabIndex = 3I
+		*this.labelFilePath.Tag = "clear"
+		*this.labelFilePath.Text = "label1"
+		//
+		//labelTestDescription
+		//
+		*this.labelTestDescription.AutoSize = *True
+		*this.labelTestDescription.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.labelTestDescription.Location = *new System.Drawing.Point(195I, 435I)
+		*this.labelTestDescription.Name = "labelTestDescription"
+		*this.labelTestDescription.Size = *new System.Drawing.Size(45I, 16I)
+		*this.labelTestDescription.TabIndex = 4I
+		*this.labelTestDescription.Tag = "clear"
+		*this.labelTestDescription.Text = "label1"
+		//
+		//labelDateRan
+		//
+		*this.labelDateRan.AutoSize = *True
+		*this.labelDateRan.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.labelDateRan.Location = *new System.Drawing.Point(195I, 464I)
+		*this.labelDateRan.Name = "labelDateRan"
+		*this.labelDateRan.Size = *new System.Drawing.Size(45I, 16I)
+		*this.labelDateRan.TabIndex = 5I
+		*this.labelDateRan.Tag = "clear"
+		*this.labelDateRan.Text = "label1"
+		//
+		//labelReadFile
+		//
+		*this.labelReadFile.AutoSize = *True
+		*this.labelReadFile.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.labelReadFile.Location = *new System.Drawing.Point(195I, 548I)
+		*this.labelReadFile.Name = "labelReadFile"
+		*this.labelReadFile.Size = *new System.Drawing.Size(45I, 16I)
+		*this.labelReadFile.TabIndex = 7I
+		*this.labelReadFile.Tag = "clear"
+		*this.labelReadFile.Text = "label1"
+		//
+		//label1
+		//
+		*this.label1.AutoSize = *True
+		*this.label1.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label1.Location = *new System.Drawing.Point(48I, 377I)
+		*this.label1.Name = "label1"
+		*this.label1.Size = *new System.Drawing.Size(64I, 16I)
+		*this.label1.TabIndex = 9I
+		*this.label1.Text = "DB name"
+		//
+		//label2
+		//
+		*this.label2.AutoSize = *True
+		*this.label2.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label2.Location = *new System.Drawing.Point(48I, 406I)
+		*this.label2.Name = "label2"
+		*this.label2.Size = *new System.Drawing.Size(59I, 16I)
+		*this.label2.TabIndex = 10I
+		*this.label2.Text = "File path"
+		//
+		//label3
+		//
+		*this.label3.AutoSize = *True
+		*this.label3.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label3.Location = *new System.Drawing.Point(48I, 435I)
+		*this.label3.Name = "label3"
+		*this.label3.Size = *new System.Drawing.Size(104I, 16I)
+		*this.label3.TabIndex = 11I
+		*this.label3.Text = "Test description"
+		//
+		//label4
+		//
+		*this.label4.AutoSize = *True
+		*this.label4.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label4.Location = *new System.Drawing.Point(48I, 464I)
+		*this.label4.Name = "label4"
+		*this.label4.Size = *new System.Drawing.Size(88I, 16I)
+		*this.label4.TabIndex = 12I
+		*this.label4.Text = "Date/time ran"
+		//
+		//label5
+		//
+		*this.label5.AutoSize = *True
+		*this.label5.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label5.Location = *new System.Drawing.Point(48I, 493I)
+		*this.label5.Name = "label5"
+		*this.label5.Size = *new System.Drawing.Size(91I, 16I)
+		*this.label5.TabIndex = 13I
+		*this.label5.Text = "Records read"
+		//
+		//label7
+		//
+		*this.label7.AutoSize = *True
+		*this.label7.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label7.Location = *new System.Drawing.Point(67I, 548I)
+		*this.label7.Name = "label7"
+		*this.label7.Size = *new System.Drawing.Size(96I, 16I)
+		*this.label7.TabIndex = 15I
+		*this.label7.Text = "Read file in ms"
+		//
+		//label9
+		//
+		*this.label9.AutoSize = *True
+		*this.label9.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label9.Location = *new System.Drawing.Point(48I, 522I)
+		*this.label9.Name = "label9"
+		*this.label9.Size = *new System.Drawing.Size(86I, 16I)
+		*this.label9.TabIndex = 17I
+		*this.label9.Text = "Benchmarks:"
+		//
+		//comboboxTest
+		//
+		*this.comboboxTest.FormattingEnabled = *True
+		*this.comboboxTest.Items.AddRange(*new *Object[] {"SetLL", "SetRange", "FirehoseRead", "FirehoseReadWithDSSKeywords"})
+		*this.comboboxTest.Location = *new System.Drawing.Point(25I, 72I)
+		*this.comboboxTest.Name = "comboboxTest"
+		*this.comboboxTest.Size = *new System.Drawing.Size(362I, 28I)
+		*this.comboboxTest.TabIndex = 18I
+		//
+		//comboboxDBName
+		//
+		*this.comboboxDBName.FormattingEnabled = *True
+		*this.comboboxDBName.Items.AddRange(*new *Object[] {"Local", "DSS", "IBM"})
+		*this.comboboxDBName.Location = *new System.Drawing.Point(25I, 113I)
+		*this.comboboxDBName.Name = "comboboxDBName"
+		*this.comboboxDBName.Size = *new System.Drawing.Size(362I, 28I)
+		*this.comboboxDBName.TabIndex = 19I
+		//
+		//listboxResults
+		//
+		*this.listboxResults.Anchor = ((((System.Windows.Forms.AnchorStyles.Top *BitOr System.Windows.Forms.AnchorStyles.Bottom) *BitOr System.Windows.Forms.AnchorStyles.Left) *BitOr System.Windows.Forms.AnchorStyles.Right) *As System.Windows.Forms.AnchorStyles)
+		*this.listboxResults.Font = *new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.listboxResults.FormattingEnabled = *True
+		*this.listboxResults.ItemHeight = 16I
+		*this.listboxResults.Location = *new System.Drawing.Point(485I, 69I)
+		*this.listboxResults.Name = "listboxResults"
+		*this.listboxResults.Size = *new System.Drawing.Size(453I, 628I)
+		*this.listboxResults.TabIndex = 20I
+		//
+		//linklabelClearList
+		//
+		*this.linklabelClearList.AutoSize = *True
+		*this.linklabelClearList.Location = *new System.Drawing.Point(488I, 39I)
+		*this.linklabelClearList.Name = "linklabelClearList"
+		*this.linklabelClearList.Size = *new System.Drawing.Size(69I, 20I)
+		*this.linklabelClearList.TabIndex = 21I
+		*this.linklabelClearList.TabStop = *True
+		*this.linklabelClearList.Text = "Clear list"
+		//
+		//comboboxTimesToRun
+		//
+		*this.comboboxTimesToRun.FormattingEnabled = *True
+		*this.comboboxTimesToRun.Items.AddRange(*new *Object[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"})
+		*this.comboboxTimesToRun.Location = *new System.Drawing.Point(29I, 223I)
+		*this.comboboxTimesToRun.Name = "comboboxTimesToRun"
+		*this.comboboxTimesToRun.Size = *new System.Drawing.Size(138I, 28I)
+		*this.comboboxTimesToRun.TabIndex = 24I
+		//
+		//label6
+		//
+		*this.label6.AutoSize = *True
+		*this.label6.Location = *new System.Drawing.Point(29I, 198I)
+		*this.label6.Name = "label6"
+		*this.label6.Size = *new System.Drawing.Size(96I, 20I)
+		*this.label6.TabIndex = 25I
+		*this.label6.Text = "Times to run"
+		//
+		//labelLogFileMessage
+		//
+		*this.labelLogFileMessage.AutoSize = *True
+		*this.labelLogFileMessage.Location = *new System.Drawing.Point(23I, 9I)
+		*this.labelLogFileMessage.Name = "labelLogFileMessage"
+		*this.labelLogFileMessage.Size = *new System.Drawing.Size(105I, 20I)
+		*this.labelLogFileMessage.TabIndex = 26I
+		*this.labelLogFileMessage.Tag = "clear"
+		*this.labelLogFileMessage.Text = "Date/time ran"
+		//
+		//label8
+		//
+		*this.label8.AutoSize = *True
+		*this.label8.Font = *new System.Drawing.Font("Microsoft Sans Serif", 9.75, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label8.Location = *new System.Drawing.Point(24I, 345I)
+		*this.label8.Name = "label8"
+		*this.label8.Size = *new System.Drawing.Size(123I, 16I)
+		*this.label8.TabIndex = 27I
+		*this.label8.Tag = ""
+		*this.label8.Text = "Last run test results:"
+		//
+		//Form1
+		//
+		*this.AutoScaleDimensions = *new System.Drawing.SizeF(9, 20)
+		*this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+		*this.ClientSize = *new System.Drawing.Size(968I, 721I)
+		*this.Controls.Add(*this.label8)
+		*this.Controls.Add(*this.labelLogFileMessage)
+		*this.Controls.Add(*this.label6)
+		*this.Controls.Add(*this.comboboxTimesToRun)
+		*this.Controls.Add(*this.linklabelClearList)
+		*this.Controls.Add(*this.listboxResults)
+		*this.Controls.Add(*this.comboboxDBName)
+		*this.Controls.Add(*this.comboboxTest)
+		*this.Controls.Add(*this.label9)
+		*this.Controls.Add(*this.label7)
+		*this.Controls.Add(*this.label5)
+		*this.Controls.Add(*this.label4)
+		*this.Controls.Add(*this.label3)
+		*this.Controls.Add(*this.label2)
+		*this.Controls.Add(*this.label1)
+		*this.Controls.Add(*this.labelReadFile)
+		*this.Controls.Add(*this.labelDateRan)
+		*this.Controls.Add(*this.labelTestDescription)
+		*this.Controls.Add(*this.labelFilePath)
+		*this.Controls.Add(*this.labelDBName)
+		*this.Controls.Add(*this.labelRecordsRead)
+		*this.Controls.Add(*this.buttonRunTest)
+		*this.Font = *new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.Margin = *new System.Windows.Forms.Padding(4I, 5I, 4I, 5I)
+		*this.Name = "Form1"
+		*this.Text = "DataGate Benchmarks"
+		*this.ResumeLayout(*False)
+		*this.PerformLayout()
+	EndSr
+	
+	DclFld buttonRunTest Type(System.Windows.Forms.Button) Access(*Private) WithEvents(*Yes)
+	//Required by the Windows Form Designer
+	DclFld components Type(System.ComponentModel.IContainer) Inz(*Nothing)
+	
+	// Clean up any resources being used.
+	// "disposing" is true if managed resources should be disposed; otherwise, false.
+	BegSr Dispose Access(*Protected) Modifier(*Overrides)
+		DclSrParm disposing Type(*Boolean)
+
+		If (disposing *And (components *NE *Nothing))
+			components.Dispose()
+		EndIf
+			
+		*Base.Dispose(disposing)
+	EndSr
+	
+EndClass

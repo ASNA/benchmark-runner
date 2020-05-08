@@ -1,0 +1,59 @@
+﻿Using System
+Using System.Text
+
+BegClass BMFirehoseReadWithDSSKeywords Access(*Public) Extends(BenchmarkBase)
+
+    DclDB DGDB DBName("*PUBLIC/DG NET Local") 
+             
+    DclDiskFile  InputFile +
+          Type(*Input) + 
+          Org(*Indexed) + 
+          Prefix(InputFile_) + 
+          File("Examples/ItemASA") +
+          NetblockFactor(200) +
+          ServerCursor(*FastforwardOnly) + 
+          DB(DGDB) +
+          ImpOpen(*No) 
+
+    BegConstructor Access(*Public) Base(FilePath) 
+        DclSrParm DBName Type(*String) 
+        DclSrParm FilePath Type(*String) 
+
+        *This.DGDB.DBName = DBName             
+    EndConstructor 
+    
+    BegFunc RunTest Access(*Public) Modifier(*Overrides) Type(TestInfo) 
+        DclFld ti Type(TestInfo) New()
+
+        DclFld OpenFileTimer Type(Timer) New()
+        DclFld ReadRecordsTimer Type(Timer) New()
+        DclFld CloseFileTimer Type(Timer) New()
+
+        *This.TestDescription = 'Test firehose read with DSS keywords'
+
+        Connect DGDB
+        Open InputFile
+
+        ti.FilePath = InputFile.FilePath
+        ti.DBName = DGDB.DBName 
+        ti.RecordCount = InputFile.RecCount 
+        ti.TestDescription = *This.TestDescription     
+        ti.RecordsRead = 0 
+
+        Read InputFile
+        DoWhile (NOT InputFile.IsEof)
+            ti.RecordsRead += 1 
+            If Modulo(ti.RecordsRead, 1000) 
+                RecordRead(*This, ti) 
+            EndIf 
+            
+            Read InputFile
+        EndDo            
+
+        Disconnect DGDB 
+        Close InputFile 
+
+        LeaveSr ti
+    EndFunc 
+
+EndClass

@@ -1,0 +1,134 @@
+﻿Using System
+Using System.Text
+Using System.Diagnostics
+Using System.IO 
+Using BenchMarkRunner
+
+
+
+BegClass BenchmarkBase Access(*Public) Modifier(*MustExtend) 
+           
+    DclProp FilePath Type(*String)  Access(*Public)
+    DclProp DatabaseName Type(*String)  Access(*Public)
+    DclProp LogFilePath  Type(*String) 
+    DclProp TestDescription Type(*String) Access(*Public) 
+
+    BegConstructor Access(*Public) 
+    EndConstructor 
+    
+    BegConstructor Access(*Public) 
+        DclSrParm LogFilePath Type(*String) 
+
+        If NOT LogFilePath.EndsWith('\')
+            LogFilePath += '\'
+        EndIf 
+
+        *This.LogFilePath = LogFilePath 
+    EndConstructor 
+
+    BegFunc Modulo Type(*Boolean)  Access(*Protected)
+        DclSrParm Dividend Type(*Integer4) 
+        DclSrParm Divisor  Type(*Integer4) 
+        
+        DclFld Remainder Type(*Integer4) 
+        
+        System.Math.DivRem(Dividend, Divisor, *ByRef Remainder) 
+         
+        LeaveSr Remainder = 0
+    EndFunc 
+
+    DclEvent RecordRead Access(*Public) 
+        DclSrParm Type(*Object) 
+        DclSrParm e Type(TestInfo) 
+
+    DclEvent ShowResults Access(*Public) 
+        DclSrParm Type(*Object) 
+        DclSrParm e Type(TestInfo) 
+
+    BegFunc RunTest Access(*Public) Modifier(*MustOverride) Type(TestInfo) 
+    EndFunc
+            
+    BegSr Run Access(*Public) 
+        DclFld OpenFileTimer Type(Timer) New()
+        DclFld ReadRecordsTimer Type(Timer) New()
+        DclFld CloseFileTimer Type(Timer) New()
+
+        DclFld ti Type(TestInfo) 
+        
+        OpenFileTimer.Start()
+
+        OpenFileTimer.Stop()
+                
+        ReadRecordsTimer.Start()
+
+        ti = RunTest()
+
+        ReadRecordsTimer.Stop()
+
+        Console.WriteLine('Read {0} of {1} records', ti.RecordsRead, ti.RecordCount) 
+
+        CloseFileTimer.Start()
+        CloseFileTimer.Stop() 
+
+        ti.OpenFileTime = OpenFileTimer.ElapsedMilliseconds
+        ti.ReadFileTime = ReadRecordsTimer.ElapsedMilliseconds
+        ti.CloseFileTime = CloseFileTimer.ElapsedMilliseconds
+
+        ShowResults(*This, ti) 
+        ReportResults(OpenFileTimer, ReadRecordsTimer, CloseFileTimer, ti) 
+    EndSr    
+       
+    BegSr ReportResults 
+        DclSrParm OpenFileTimer Type(Timer) 
+        DclSrParm ReadRecordsTimer Type(Timer) 
+        DclSrParm CloseFileTimer Type(Timer) 
+        DclSrParm ti Type(TestInfo) 
+
+        DclFld sb Type(StringBuilder) New()
+
+        sb.AppendLine()
+        sb.AppendLine('---------------------------') 
+        sb.AppendLine('DataGate Benchmark Results:') 
+        sb.AppendLine('---------------------------') 
+        sb.AppendLine(String.Format('Database name.....: {0}', ti.DBName))
+        sb.AppendLine(String.Format('FilePath..........: {0}', ti.FilePath))            
+        sb.AppendLine(String.Format('Description.......: {0}', TestDescription))
+        sb.AppendLine(String.Format('Date ran..........: {0}', DateTime.Now.ToString('dddd, MMM-dd-yy \a\t hh:mm:ss')))
+        sb.AppendLine(String.Format('Records read......: {0:n0}', ti.RecordsRead)) 
+        sb.AppendLine(String.Format('Benchmarks:')) 
+//        sb.AppendLine(String.Format('  Open file.......: {0:n0}ms', OpenFileTimer.ElapsedMilliseconds))
+        sb.AppendLine(String.Format('  Read file.......: {0:n0}ms', ReadRecordsTimer.ElapsedMilliseconds))
+//        sb.AppendLine(String.Format('  Close file.......: {0:n0}ms', CloseFileTimer.ElapsedMilliseconds))
+
+        Console.WriteLine(sb.ToString())
+
+        WriteLogFile(sb.ToString(), LogfilePath) 
+    EndSr
+
+    BegSr WriteLogFile 
+        DclSrParm Results Type(*String) 
+        DclSrParm LogFilePath Type(*String) 
+
+        DclFld LogFilename Type(*String) 
+
+        LogFileName = LogFilePath 
+        LogFilename += TESTDESCRIPTION.Replace(' ','-').ToLower() 
+        LogFilename += DateTime.Now().ToString('.yyyy.MM.dd.hh.mm.ss.ff') + '.log'
+
+        File.WriteAllText(LogFilename, Results) 
+        Console.WriteLine('Log file written to: {0}', LogFilename) 
+    EndSr
+EndClass
+
+BegClass TestInfo Access(*Public) 
+    DclProp RecordCount Type(*Integer4) Access(*Public)  
+    DclProp RecordsRead Type(*Integer4) Access(*Public) 
+    DclProp FilePath Type(*String) Access(*Public) 
+    DclProp DBName Type(*String) Access(*Public) 
+    DclProp OpenFileTime Type(*Integer4) Access(*Public) 
+    DclProp ReadFileTime Type(*Integer4) Access(*Public) 
+    DclProp CloseFileTime Type(*Integer4) Access(*Public) 
+    DclProp TestDescription Type(*String) Access(*Public) 
+EndClass 
+
+

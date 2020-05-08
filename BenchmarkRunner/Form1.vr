@@ -1,0 +1,173 @@
+﻿Using System
+Using System.Collections
+Using System.ComponentModel
+Using System.Data
+Using System.Drawing
+Using System.Text
+Using System.Windows.Forms
+Using System.Math
+
+BegClass Form1 Extends(System.Windows.Forms.Form) Access(*Public) Partial(*Yes)
+
+	/region Default Constructor
+	
+	BegConstructor Access(*Public)
+		//
+		// Required for Windows Form Designer support
+		//
+		InitializeComponent()
+
+		//
+		// TODO: Add any constructor code after InitializeComponent call
+		//
+	EndConstructor
+
+	/endregion
+
+    DclFld LogFilePath Type(*String) 
+
+    DclFld BenchMark Type(BenchmarkBase) WithEvents(*Yes) 
+
+    DclConst LOCAL_DB Value('*Public/DG Net Local') 
+    DclConst DSS_DB Value('SQL') 
+    DclConst IBM_DB Value('Cypress') 
+
+    DclFld Average Type(*Integer4) 
+    DclFLd TimesRun Type(*Integer4) 
+    
+	BegSr Form1_Load Access(*Private) Event(*this.Load)
+		DclSrParm sender *Object
+		DclSrParm e System.EventArgs
+        
+        LogFilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+        LogFilePath += '\Documents\BenchmarkLogs'
+        
+        ClearOutputs()
+
+        labelLogFileMessage.Text = 'Log files written to ' + LogFilePath
+        
+        comboboxTest.SelectedIndex = 0
+        comboboxDBName.SelectedIndex = 0
+        comboboxTimesToRun.SelectedIndex = 0
+	EndSr
+
+    BegSr ClearOutputs
+        Foreach lbl Type(Label) Collection(*This.Controls) 
+            If lbl.Tag = *Nothing 
+            ElseIf lbl.Tag.ToString() = 'clear'
+                lbl.Text = ''           
+            EndIf
+        EndFor 
+    EndSr
+
+    BegSr BMRecordRead
+        DclSrParm Sender Type(*Object) 
+        DclSrParm e Type(TestInfo) 
+
+        DclFld x Type(*Integer4) 
+
+        labelRecordsRead.Text = e.RecordsRead.ToString('#,000')
+        labelRecordsRead.Refresh()
+    EndSr
+    
+    BegSr BMShowResults
+        DclSrParm Sender Type(*Object) 
+        DclSrParm e Type(TestInfo) 
+
+        DclFld RunningAverage Type(*Packed) Len( 12,0)
+
+        labelDBName.Text = e.DBName
+        labelFilePath.Text = e.FilePath
+        labelTestDescription.Text = e.TestDescription
+        labelDateRan.Text =  DateTime.Now.ToString('dddd, MMM-dd-yy \a\t hh:mm:ss')
+        labelRecordsRead.Text = e.RecordsRead.ToString('#,000')
+        labelReadFile.Text = e.ReadFileTime.ToString('#,000')
+
+        Average += e.ReadFileTime
+        TimesRun += 1 
+        RunningAverage = Average/TimesRun 
+
+        If TimesRun > 1
+            listboxResults.Items.Add(String.Format(TimesRun.ToString() + ': ' + labelReadFile.Text + ' Ave = {0:#,000}', RunningAverage) ) 
+        Else 
+            listboxResults.Items.Add(comboboxDBName.Text + '-' + labelTestDescription.Text)
+            listboxResults.Items.Add(TimesRun.ToString() + ': ' + labelReadFile.Text)
+        EndIf 
+        listboxResults.Refresh()
+    EndSr 
+
+    BegSr RunTest
+        DclSrParm BenchMark Type(BenchMarkBase) 
+
+        ClearOutputs()
+        AddHandler HandlerObject(*This) HandlerSr(BMRecordRead) SourceObject(BenchMark) SourceEvent(RecordRead) 
+        AddHandler HandlerObject(*This) HandlerSr(BMShowResults) SourceObject(BenchMark) SourceEvent(ShowResults) 
+        Benchmark.Run()
+        RemoveHandler HandlerObject(*This) HandlerSr(BMRecordRead) SourceObject(BenchMark) SourceEvent(RecordRead) 
+        RemoveHandler HandlerObject(*This) HandlerSr(BMShowResults) SourceObject(BenchMark) SourceEvent(ShowResults) 
+    EndSr
+
+	BegSr buttonRunTest_Click Access(*Private) Event(*this.buttonRunTest.Click)
+        DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+
+        DclFld SelectedTest Type(*String) 
+        DclFld SelectedDB Type(*String) 
+        DclFld DBName Type(*String) 
+        DclFld TimesToRun Type(*Integer4) 
+
+        (Sender *as Button).Enabled = *False
+        Cursor.Current = Cursors.WaitCursor
+        
+        SelectedTest = comboboxTest.Text 
+        SelectedDB = comboboxDBName.Text
+
+        If selectedDB.ToLower() = 'local'
+            DBName = LOCAL_DB
+
+        ElseIf selectedDB.ToLower() = 'dss'
+            DBName = DSS_DB
+
+        ElseIf selectedDB.ToLower() = 'ibm'
+            DBName = IBM_DB
+        EndIf 
+        
+        If  SelectedTest.ToLower() = 'setll'
+            BenchMark = *New BMSetLL(DBName, LogFilePath) 
+
+        ElseIf   SelectedTest.ToLower() = 'setrange'
+            BenchMark = *New BMSetRange(DBName, LogFilePath) 
+
+        ElseIf   SelectedTest.ToLower() = 'firehoseread'
+            BenchMark = *New BMFirehoseRead(DBName, LogFilePath) 
+
+        ElseIf   SelectedTest.ToLower() = 'firehosereadwithdsskeywords'
+            BenchMark = *New BMFirehoseReadWithDSSKeywords(DBName, LogFilePath) 
+
+        EndIf 
+
+        TimesToRun = comboboxTimesToRun.Text
+
+        Average = 0
+        TimesRun = 0 
+
+        Do FromVal(1) ToVal(TimesToRun) 
+            RunTest(BenchMark) 
+        EndDo 
+
+        (Sender *as Button).Enabled = *True
+        Cursor.Current = Cursors.Default
+
+   	EndSr
+	
+	BegSr linklabelClearList_LinkClicked Access(*Private) Event(*this.linklabelClearList.LinkClicked)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+
+        listboxResults.Items.Clear()
+        Average = 0
+        TimesRun = 0
+	EndSr
+	
+	
+EndClass

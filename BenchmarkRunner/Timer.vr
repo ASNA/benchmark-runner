@@ -1,0 +1,24 @@
+﻿Using System
+Using System.Text
+Using System.Diagnostics
+
+DclNamespace BenchmarkRunner 
+
+BegClass Timer Access(*Public) 
+
+    DclFld tw Type(StopWatch) New()
+
+    DclProp ElapsedMilliseconds Access(*Public) Type(*Integer4) 
+
+    BegSr Start Access(*Public) 
+        tw.Start() 
+    EndSr         
+
+    BegFunc Stop Access(*Public) Type(*Integer4) 
+        tw.Stop()
+        *This.ElapsedMilliseconds = tw.ElapsedMilliseconds
+        LeaveSr tw.ElapsedMilliseconds
+    EndFunc
+EndClass
+
+
